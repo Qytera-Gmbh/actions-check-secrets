@@ -1,0 +1,15 @@
+{
+    "include": ["**/*.ts"],
+    "exclude": ["node_modules/", "dist/", "**/*.spec.ts"],
+    "compilerOptions": {
+        "target": "ESNext",
+        "module": "CommonJS",
+        "declaration": true,
+        "outDir": "dist",
+        "esModuleInterop": true,
+        "moduleResolution": "Node",
+        "lib": ["ESNext", "DOM"],
+        "types": ["node", "mocha"],
+        "allowJs": true
+    }
+}

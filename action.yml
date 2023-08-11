@@ -1,0 +1,17 @@
+name: "check-secrets"
+description: "Mini action for verifying that certain secrets have been passed to the job"
+inputs:
+  names:
+    description: |
+      A list of secrets which must be available/non-empty for the job to succeed
+      You should pass them like this:
+
+          with:
+              names: |
+                SECRET1
+                SECRET2
+
+    required: true
+runs:
+  using: "node16"
+  main: "dist/index.js"
