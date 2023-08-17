@@ -9,7 +9,7 @@
         "esModuleInterop": true,
         "moduleResolution": "Node",
         "lib": ["ESNext", "DOM"],
-        "types": ["node", "mocha"],
+        "types": ["node", "mocha", "jest"],
         "allowJs": true
     }
 }

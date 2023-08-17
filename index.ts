@@ -1,36 +1,35 @@
-import chalk from "chalk";
-import core from "./core";
+import * as core from "@actions/core";
+import colors from "ansi-colors";
 
 export function main() {
     try {
-        const secretNames: string[] = core.getInput("names").split("\n");
-
-        if (secretNames.length === 0 || secretNames.every((name) => name.length === 0)) {
-            core.warning(chalk.yellow("Skipping secret check, no names were provided"));
+        const secretNames: string[] = core.getMultilineInput("names");
+        if (!secretNames) {
+            core.setFailed("No value provided for required input: names");
             return;
         }
-
-        core.info(chalk.whiteBright("Checking availability of secrets..."));
-
+        if (secretNames.length === 0 || secretNames.every((name) => name.length === 0)) {
+            core.warning(colors.yellow("Skipping secret check, no names were provided"));
+            return;
+        }
+        core.info(colors.whiteBright("Checking availability of secrets..."));
         let allExist = true;
-
         secretNames.forEach((name) => {
             if (name in process.env && process.env[name].length > 0) {
-                core.info(chalk.green(`  ✓ ${name}`));
+                core.info(colors.green(`  ✓ ${name}`));
             } else {
-                core.info(chalk.red(`  ✗ ${name}`));
+                core.info(colors.red(`  ✗ ${name}`));
                 allExist = false;
             }
         });
-
         if (!allExist) {
             core.error(
-                chalk.red(
+                colors.red(
                     "If dependabot initiated the workflow, make sure to add the missing secrets to Dependabot's secrets."
                 )
             );
             core.error(
-                chalk.red(
+                colors.red(
                     "More information: https://docs.github.com/en/code-security/dependabot/working-with-dependabot/configuring-access-to-private-registries-for-dependabot"
                 )
             );
