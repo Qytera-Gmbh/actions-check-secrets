@@ -8,8 +8,8 @@ inputs:
 
           with:
               names: |
-                SECRET1
-                SECRET2
+                SECRET_NAME_1
+                SECRET_NAME_2
 
     required: true
 runs:
